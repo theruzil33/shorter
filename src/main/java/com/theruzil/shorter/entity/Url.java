@@ -6,20 +6,17 @@ import jakarta.persistence.*;
 public class Url {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     private String fullUrl;
-    @Column(unique = true)
-    private String shortUrl;
 
     public Url() { }
 
-    public Url(Long id, String fullUrl, String shortUrl) {
+    public Url(Integer id, String fullUrl) {
         this.id = id;
         this.fullUrl = fullUrl;
-        this.shortUrl = shortUrl;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -27,19 +24,11 @@ public class Url {
         return fullUrl;
     }
 
-    public String getShortUrl() {
-        return shortUrl;
-    }
-
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     public void setFullUrl(String fullUrl) {
         this.fullUrl = fullUrl;
-    }
-
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
     }
 }

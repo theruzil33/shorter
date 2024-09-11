@@ -1,1 +1,1 @@
-INSERT INTO url (id, full_url, short_url) VALUES (100, 'full_url', 'short_url');
+INSERT INTO url (id, full_url) VALUES (100, 'full_url');
