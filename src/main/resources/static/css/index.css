@@ -1,3 +1,18 @@
-.main {
-    background: green;
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid;
+}
+
+td {
+    text-align: center;
+}
+
+.url-input-form {
+    display: grid;
+    gap: 8px;
+    line-height: 1.3;
 }

@@ -9,6 +9,7 @@ import com.theruzil.shorter.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,17 +27,27 @@ public class UrlServiceImpl implements UrlService {
     public UrlResponse createUrl(UrlRequest fullUrl) {
         Url exist = getIfExist(fullUrl);
         if (exist != null) {
-            return new UrlResponse(urlConvertService.idToString(exist.getId()));
+            return new UrlResponse(
+                    urlConvertService.idToString(exist.getId()),
+                    exist.getFullUrl()
+            );
         }
         Url url = new Url();
         url.setFullUrl(fullUrl.getFullUrl());
         url = urlRepository.save(url);
-        return new UrlResponse(urlConvertService.idToString(url.getId()));
+        return new UrlResponse(
+                urlConvertService.idToString(url.getId()),
+                url.getFullUrl()
+        );
     }
 
     @Override
-    public Url getById(long id) {
-        return urlRepository.findById(id);
+    public UrlResponse getById(long id) {
+        Url url = urlRepository.findById(id);
+        return new UrlResponse(
+                urlConvertService.idToString(url.getId()),
+                url.getFullUrl()
+        );
     }
 
     private Url getIfExist(UrlRequest urlRequest) {
@@ -45,5 +56,18 @@ public class UrlServiceImpl implements UrlService {
             return urls.get(0);
         }
         return null;
+    }
+
+    public List<UrlResponse> findAll() {
+        List<Url> urls = urlRepository.findAll();
+        List<UrlResponse> urlResponses = new ArrayList<>();
+        for (Url url : urls) {
+            UrlResponse urlResponse = new UrlResponse(
+                    urlConvertService.idToString(url.getId()),
+                    url.getFullUrl()
+            );
+            urlResponses.add(urlResponse);
+        }
+        return urlResponses;
     }
 }

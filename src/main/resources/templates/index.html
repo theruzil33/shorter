@@ -2,14 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
+    <title>Укарачиватель ссылок</title>
     <link rel="stylesheet" href="/static/css/index.css">
 </head>
 <body>
-  <div class="main">
-    Very good
-  </div>
-  <button onclick="myFunction()">Click me</button>
+  <table>
+      <thead>
+          <tr>
+              <th> Полный адрес </th>
+              <th> Короткий адрес </th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr th:if="${urls.empty}">
+              <td colspan="2"> Нет адресов в памяти </td>
+          </tr>
+          <tr th:each="url : ${urls}">
+              <td><span th:text="${url.getFullUrl()}"> fullUrl </span></td>
+              <td><span th:text="${url.getShortUrl()}"> shortUrl </span></td>
+          </tr>
+      </tbody>
+  </table>
+  <h1>Укаратить ссылку</h1>
+  <form action="#" th:action="@{/}" th:object="${urlRequest}" method="post" class="url-input-form">
+      <div>
+          <label>Id:</label>
+          <input type="text" th:field="*{fullUrl}" />
+          <input type="submit" value="Укаратить" />
+      </div>
+  </form>
 
   <script src="/static/js/index.js"></script>
 </body>

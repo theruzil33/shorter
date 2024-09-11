@@ -8,4 +8,6 @@ import java.util.List;
 public interface UrlRepository extends CrudRepository<Url, Long> {
     Url findById(long id);
     List<Url> findByFullUrl(String fullUrl);
+
+    List<Url> findAll();
 }
