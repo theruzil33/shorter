@@ -6,6 +6,8 @@ import com.theruzil.shorter.service.UrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +28,17 @@ public class MainController {
     }
 
     @PostMapping("/")
-    public String mainSubmit(@ModelAttribute UrlRequest urlRequest, Model model) {
+    public String mainSubmit(
+            @ModelAttribute @Validated final UrlRequest urlRequest, final BindingResult binding,
+            Model model
+    ) {
+        if (binding.hasErrors()) {
+            model.addAttribute("urlRequest", new UrlRequest());
+            model.addAttribute("urls", urlService.findAll());
+            model.addAttribute("errors", binding.getAllErrors());
+            return "index";
+        }
+
         UrlResponse result = urlService.createUrl(urlRequest);
         model.addAttribute("urls", urlService.findAll());
         return "index";

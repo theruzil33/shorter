@@ -1,6 +1,9 @@
 package com.theruzil.shorter.dto;
 
+import com.theruzil.shorter.validator.url.ValidUrl;
+
 public class UrlRequest {
+    @ValidUrl
     private String fullUrl;
 
     public UrlRequest() {}

@@ -1,7 +1,11 @@
 package com.theruzil.shorter.dto;
 
+import com.theruzil.shorter.validator.url.ValidUrl;
+
 public class UrlResponse {
+    @ValidUrl
     private String shortUrl;
+    @ValidUrl
     private String fullUrl;
 
     public UrlResponse() {}

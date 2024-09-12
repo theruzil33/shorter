@@ -23,6 +23,9 @@
           </tr>
       </tbody>
   </table>
+  <p>
+      <span th:each="error : ${errors}" th:text="${error.defaultMessage}"></span>
+  </p>
   <h1>Укаратить ссылку</h1>
   <form action="#" th:action="@{/}" th:object="${urlRequest}" method="post" class="url-input-form">
       <div>
