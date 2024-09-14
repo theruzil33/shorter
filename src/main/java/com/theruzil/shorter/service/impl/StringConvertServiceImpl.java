@@ -1,6 +1,6 @@
 package com.theruzil.shorter.service.impl;
 
-import com.theruzil.shorter.service.UrlConvertService;
+import com.theruzil.shorter.service.StringConvertService;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class UrlConvertServiceImpl implements UrlConvertService {
+public class StringConvertServiceImpl implements StringConvertService {
     private final String letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private final int new_base = letters.length();
 

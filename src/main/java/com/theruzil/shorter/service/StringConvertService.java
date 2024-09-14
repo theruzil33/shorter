@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public interface UrlConvertService {
+public interface StringConvertService {
     String idToString(@Min(1) int id);
     int stringToId(@NotEmpty String str);
 }

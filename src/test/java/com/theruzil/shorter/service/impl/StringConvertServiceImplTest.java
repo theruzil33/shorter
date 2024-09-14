@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.stream.Stream;
 
 @SpringBootTest
-class UrlConvertServiceImplTest {
-    private final UrlConvertServiceImpl shortService;
+class StringConvertServiceImplTest {
+    private final StringConvertServiceImpl shortService;
 
     @Autowired
-    UrlConvertServiceImplTest(UrlConvertServiceImpl shortService) {
+    StringConvertServiceImplTest(StringConvertServiceImpl shortService) {
         this.shortService = shortService;
     }
 
