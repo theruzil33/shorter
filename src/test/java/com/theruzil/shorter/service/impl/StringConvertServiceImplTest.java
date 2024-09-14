@@ -11,12 +11,8 @@ import java.util.stream.Stream;
 
 @SpringBootTest
 class StringConvertServiceImplTest {
-    private final StringConvertServiceImpl shortService;
-
     @Autowired
-    StringConvertServiceImplTest(StringConvertServiceImpl shortService) {
-        this.shortService = shortService;
-    }
+    StringConvertServiceImpl shortService;
 
     @ParameterizedTest
     @MethodSource("idToStringSamples")

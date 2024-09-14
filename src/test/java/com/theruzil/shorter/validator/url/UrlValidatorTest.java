@@ -3,15 +3,12 @@ package com.theruzil.shorter.validator.url;
 import jakarta.validation.ClockProvider;
 import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
 class UrlValidatorTest {
-
-    private final UrlValidator urlValidator;
-    private final ConstraintValidatorContext constraintValidatorContext;
+    UrlValidator urlValidator;
+    ConstraintValidatorContext constraintValidatorContext;
 
     public UrlValidatorTest() {
         this.urlValidator = new UrlValidator();
