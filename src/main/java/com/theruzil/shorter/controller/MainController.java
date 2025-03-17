@@ -19,22 +19,28 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
 
 @Controller
 public class MainController {
     private final UrlResponseService urlResponseService;
+    private final Logger logger;
 
     @Autowired
     public MainController(
-            UrlResponseService urlResponseService
+            UrlResponseService urlResponseService,
+            Logger logger
     ) {
         this.urlResponseService = urlResponseService;
+        this.logger = logger;
     }
     @GetMapping("/{pathId}")
     public RedirectView redirect(@PathVariable(value="pathId") String pathId) {
         Url url = urlResponseService.getByShortUrl(pathId);
         RedirectView redirectView = new RedirectView();
-        redirectView.setUrl(url.getFullUrl());
+        String stringUrl = url.getFullUrl();
+        redirectView.setUrl(stringUrl);
+        logger.info(String.format("Redirect to %s", stringUrl));
         return redirectView;
     }
 
@@ -58,11 +64,16 @@ public class MainController {
 
         if (binding.hasErrors()) {
             objectErrors = binding.getAllErrors();
+            for (ObjectError error : objectErrors) {
+                logger.error(error.toString());
+            }
         } else {
             try {
                 urlResponseService.createUrl(urlRequest, requestUrl);
             } catch (Exception e) {
-                objectErrors = List.of(new ObjectError("Error", "Ошибка при создании короткой ссылки"));
+                String errorString = "Ошибка при создании короткой ссылки";
+                objectErrors = List.of(new ObjectError("Error", errorString));
+                logger.error(errorString);
             }
         }
 
@@ -73,7 +84,9 @@ public class MainController {
         try {
             urls = urlResponseService.findAll(requestUrl);
         } catch (Exception e) {
-            objectErrors = List.of(new ObjectError("Error", "Ошибка при получениии списка ссылок"));
+            String errorString = "Ошибка при получениии списка ссылок";
+            objectErrors = List.of(new ObjectError("Error", errorString));
+            logger.error(errorString);
         }
 
         model.addAttribute("urlRequest", new UrlRequest());
