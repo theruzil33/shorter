@@ -2,6 +2,7 @@ package com.theruzil.shorter.controller;
 
 import com.theruzil.shorter.dto.UrlRequest;
 import com.theruzil.shorter.dto.UrlResponse;
+import com.theruzil.shorter.entity.Url;
 import com.theruzil.shorter.service.UrlResponseService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +25,19 @@ public class MainController {
     private final UrlResponseService urlResponseService;
 
     @Autowired
-    public MainController(UrlResponseService urlResponseService) {
+    public MainController(
+            UrlResponseService urlResponseService
+    ) {
         this.urlResponseService = urlResponseService;
     }
+    @GetMapping("/{pathId}")
+    public RedirectView redirect(@PathVariable(value="pathId") String pathId) {
+        Url url = urlResponseService.getByShortUrl(pathId);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl(url.getFullUrl());
+        return redirectView;
+    }
+
     @GetMapping("/")
     public String mainForm(Model model, HttpServletRequest request) {
         String requestUrl = request.getRequestURL().toString();

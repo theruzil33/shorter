@@ -70,4 +70,9 @@ public class UrlResponseServiceImpl implements UrlResponseService {
         }
         return urlResponses;
     }
+
+    public Url getByShortUrl(String shortUrl) {
+        int id = stringConvertService.stringToId(shortUrl);
+        return urlRepository.findById(id);
+    }
 }
