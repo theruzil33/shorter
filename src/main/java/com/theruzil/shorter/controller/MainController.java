@@ -34,7 +34,8 @@ public class MainController {
         this.urlResponseService = urlResponseService;
         this.logger = logger;
     }
-    @GetMapping("/{pathId}")
+
+    @GetMapping("/to/{pathId}")
     public RedirectView redirect(@PathVariable(value="pathId") String pathId) {
         Url url = urlResponseService.getByShortUrl(pathId);
         RedirectView redirectView = new RedirectView();

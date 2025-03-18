@@ -23,7 +23,8 @@ public class UrlResponseServiceImpl implements UrlResponseService {
 
     @Autowired
     public UrlResponseServiceImpl(
-            UrlRepository urlRepository, StringConvertService stringConvertService, BaseUrlService baseUrlService
+            UrlRepository urlRepository, StringConvertService stringConvertService,
+            BaseUrlService baseUrlService
     ) {
         this.urlRepository = urlRepository;
         this.stringConvertService = stringConvertService;
@@ -58,7 +59,7 @@ public class UrlResponseServiceImpl implements UrlResponseService {
 
     private String createShortUrl(int id, String requestUrl) throws URISyntaxException, MalformedURLException {
         String baseUrl = baseUrlService.get(requestUrl);
-        return baseUrl + stringConvertService.idToString(id);
+        return baseUrl + "to/" + stringConvertService.idToString(id);
     }
 
     public List<UrlResponse> findAll(String requestUrl) throws URISyntaxException, MalformedURLException {
