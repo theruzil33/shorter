@@ -1,40 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Укарачиватель ссылок</title>
     <link rel="stylesheet" href="/static/css/index.css">
 </head>
 <body>
-  <table>
+    <div sec:authorize="!isAuthenticated()">
+        <h4><a href="/login">Войти</a></h4>
+    </div>
+    <table>
       <thead>
           <tr>
+              <th> Ид </th>
               <th> Полный адрес </th>
               <th> Короткий адрес </th>
+              <th sec:authorize="isAuthenticated()"> Действие </th>
           </tr>
       </thead>
       <tbody>
           <tr th:if="${urls.empty}">
-              <td colspan="2"> Нет адресов в памяти </td>
+              <td colspan="3"> Нет адресов в памяти </td>
           </tr>
           <tr th:each="url : ${urls}">
+              <td><span th:text="${url.getId()}"> id </span></td>
               <td><span th:text="${url.getFullUrl()}"> fullUrl </span></td>
               <td><span th:text="${url.getShortUrl()}"> shortUrl </span></td>
+              <td sec:authorize="isAuthenticated()">
+                  <form action="#" th:method="DELETE" th:action="@{/}"
+                        th:object="${urlRequest}"
+                        method="delete" class="url-input-form"
+                  >
+                      <input type="hidden" th:value="${url.id}" th:attr="name='id'"/>
+                      <input type="submit" value="Delete" />
+                  </form>
+              </td>
           </tr>
       </tbody>
-  </table>
-  <p>
+    </table>
+    <p>
       <span th:each="error : ${errors}" th:text="${error.defaultMessage}"></span>
-  </p>
-  <h1>Укаратить ссылку</h1>
-  <form action="#" th:action="@{/}" th:object="${urlRequest}" method="post" class="url-input-form">
+    </p>
+    <h1>Укаратить ссылку</h1>
+    <form action="#" th:action="@{/}" th:object="${urlRequest}" method="post" class="url-input-form">
       <div>
           <label>URL:</label>
           <input type="text" th:field="*{fullUrl}" />
           <input type="submit" value="Укаратить" />
       </div>
-  </form>
+    </form>
 
-  <script src="/static/js/index.js"></script>
+    <script src="/static/js/index.js"></script>
 </body>
 </html>

@@ -14,4 +14,5 @@ public interface UrlResponseService {
 
     List<UrlResponse> findAll(String requestUrl) throws URISyntaxException, MalformedURLException;
     Url getByShortUrl(String shortUrl);
+    void deleteById(int id);
 }

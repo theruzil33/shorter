@@ -3,6 +3,7 @@ package com.theruzil.shorter.dto;
 import com.theruzil.shorter.validator.url.ValidUrl;
 
 public class UrlResponse {
+    private int id;
     @ValidUrl
     private String shortUrl;
     @ValidUrl
@@ -10,9 +11,10 @@ public class UrlResponse {
 
     public UrlResponse() {}
 
-    public UrlResponse(String shortUrl, String fullUrl) {
+    public UrlResponse(String shortUrl, String fullUrl, int id) {
         this.shortUrl = shortUrl;
         this.fullUrl = fullUrl;
+        this.id = id;
     }
 
     public String getShortUrl() {
@@ -29,5 +31,13 @@ public class UrlResponse {
 
     public void setFullUrl(String fullUrl) {
         this.fullUrl = fullUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
